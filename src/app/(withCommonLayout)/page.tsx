@@ -1,7 +1,18 @@
+import { ErrorBoundary } from "@/src/components/errors/ErrorBoundary";
+import Landing from "@/src/components/modules/home/Landing";
+import RecentPosts from "@/src/components/modules/home/RecentPosts";
+import { Suspense } from "react";
+
 export default function Home() {
   return (
-    <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
-      <h1>This is a homepage</h1>
-    </section>
+    <>
+      <Landing />
+
+      <ErrorBoundary fallback={<p>error...</p>}>
+        <Suspense fallback={<p>Loading...</p>}>
+          <RecentPosts />
+        </Suspense>
+      </ErrorBoundary>
+    </>
   );
 }
