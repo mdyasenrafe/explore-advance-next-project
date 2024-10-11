@@ -7,12 +7,6 @@ export default function Home() {
   return (
     <>
       <Landing />
-
-      <ErrorBoundary fallback={<p>error...</p>}>
-        <Suspense fallback={<p>Loading...</p>}>
-          <RecentPosts />
-        </Suspense>
-      </ErrorBoundary>
     </>
   );
 }
