@@ -5,12 +5,20 @@ import { Button } from "@nextui-org/button";
 import FormWrapper from "@/src/components/form/FormWrapper";
 import { zodResolver } from "@hookform/resolvers/zod";
 import FormInput from "@/src/components/form/FormInput";
-import { FieldValues, SubmitHandler } from "react-hook-form";
+import { SubmitHandler } from "react-hook-form";
 import { registerValidationSchema } from "@/src/schemas/signupSchema";
+import { TRegisterFormValues } from "@/src/services/AuthServices/types";
+import { registerUser } from "@/src/services/AuthServices";
+import { useUserRegistration } from "@/src/hooks/auth.hook";
 
 const page = () => {
-  const onSubmit: SubmitHandler<FieldValues> = (data: any) => {
-    console.log(data);
+  const { mutate: handleUserRegistration, isPending } = useUserRegistration();
+
+  const onSubmit: SubmitHandler<TRegisterFormValues> = (data: any) => {
+    data["profilePhoto"] =
+      "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png";
+
+    handleUserRegistration(data);
   };
 
   return (
@@ -50,7 +58,7 @@ const page = () => {
             </div>
             <div>
               <FormInput
-                name="phoneNumber"
+                name="mobileNumber"
                 label="Phone Number"
                 type="tel"
                 placeholder="Enter your phone number"
