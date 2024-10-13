@@ -26,7 +26,6 @@ const FormInput: React.FC<FormInputProps> = ({
     register,
     formState: { errors },
   } = useFormContext();
-  console.log(errors);
   return (
     <Input
       {...register(name)}
