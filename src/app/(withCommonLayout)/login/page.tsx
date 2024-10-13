@@ -1,42 +1,55 @@
-import { Button } from "@nextui-org/button";
-import { Input } from "@nextui-org/input";
-import React from "react";
+"use client";
 
-export default function page() {
+import React from "react";
+import { Button } from "@nextui-org/button";
+import FormInput from "@/src/components/form/FormInput";
+import FormWrapper from "@/src/components/form/FormWrapper";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { loginValidationSchema } from "@/src/schemas/loginSchema";
+import { FieldValues, SubmitHandler } from "react-hook-form";
+
+const Page = () => {
+  const onSubmit: SubmitHandler<FieldValues> = (data: any) => {
+    console.log(data);
+  };
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="w-full max-w-md p-8 space-y-8 bg-white rounded shadow-md">
         <div className="text-center">
           <h2 className="text-2xl font-bold">Sign In</h2>
         </div>
-        <form className="mt-8 space-y-6" action="#" method="POST">
-          <div className="space-y-4">
+        <FormWrapper
+          onSubmit={onSubmit}
+          resolver={zodResolver(loginValidationSchema)}
+        >
+          <div className="space-y-4 mt-8">
             <div>
-              <Input
+              <FormInput
+                name="email"
                 label="Email address"
-                placeholder="Enter your email"
-                fullWidth
-                required
                 type="email"
+                placeholder="Enter your email"
               />
             </div>
             <div>
-              <Input
+              <FormInput
+                name="password"
                 label="Password"
+                type="password"
                 placeholder="Enter your password"
-                fullWidth
-                required
               />
             </div>
           </div>
-          <div className="flex items-center justify-between"></div>
-          <div>
+
+          <div className="mt-6">
             <Button fullWidth type="submit" color="primary">
               Sign In
             </Button>
           </div>
-        </form>
+        </FormWrapper>
       </div>
     </div>
   );
-}
+};
+
+export default Page;
