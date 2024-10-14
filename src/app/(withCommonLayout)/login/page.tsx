@@ -7,10 +7,13 @@ import FormWrapper from "@/src/components/form/FormWrapper";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginValidationSchema } from "@/src/schemas/loginSchema";
 import { FieldValues, SubmitHandler } from "react-hook-form";
+import { useUserLogin } from "@/src/hooks/auth.hook";
+import { TLoginFormValues } from "@/src/services/AuthServices/types";
 
 const Page = () => {
-  const onSubmit: SubmitHandler<FieldValues> = (data: any) => {
-    console.log(data);
+  const { mutate, isPending } = useUserLogin();
+  const onSubmit: SubmitHandler<TLoginFormValues> = (data) => {
+    mutate(data);
   };
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
