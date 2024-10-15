@@ -1,38 +1,45 @@
-"use client";
-
 import React from "react";
-import { Input } from "@nextui-org/input";
-import { useFormContext } from "react-hook-form";
 import { FormInputProps } from "./types";
+import { Select, SelectItem } from "@nextui-org/select";
+import { useFormContext } from "react-hook-form";
 
-const FormInput: React.FC<FormInputProps> = ({
+type TOption = {
+  key: string;
+  label: string;
+};
+
+interface FormSelectProps extends FormInputProps {
+  options: TOption[];
+}
+
+export const FormSelect: React.FC<FormSelectProps> = ({
   label = "Label",
+  options,
   placeholder = "Enter value",
   fullWidth = true,
   required = false,
   type = "text",
   name,
   variant = "bordered",
-  ...props
 }) => {
   const {
     register,
     formState: { errors },
   } = useFormContext();
+
   return (
-    <Input
+    <Select
       {...register(name)}
       label={label}
-      placeholder={placeholder}
+      variant={variant}
       fullWidth={fullWidth}
       required={required}
-      type={type}
-      variant={variant}
       isInvalid={!!errors[name]}
       errorMessage={errors[name] ? (errors[name]?.message as string) : ""}
-      {...props}
-    />
+    >
+      {options.map((option) => (
+        <SelectItem key={option.key}>{option.label}</SelectItem>
+      ))}
+    </Select>
   );
 };
-
-export default FormInput;

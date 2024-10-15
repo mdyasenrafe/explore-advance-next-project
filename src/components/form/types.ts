@@ -5,4 +5,6 @@ export type FormInputProps = {
   required?: boolean;
   type?: string;
   name: string;
+  variant?: "flat" | "bordered" | "faded" | "underlined";
+  size?: "sm" | "md" | "lg";
 };

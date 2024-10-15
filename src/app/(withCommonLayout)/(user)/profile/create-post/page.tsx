@@ -2,7 +2,9 @@
 
 import { FormDatePicker } from "@/src/components/form/FormDatePicker";
 import FormInput from "@/src/components/form/FormInput";
+import { FormSelect } from "@/src/components/form/FormSelect";
 import { dateToIso } from "@/src/utils/dateToIso";
+import { allDistict } from "@bangladeshi/bangladesh-address";
 import { Button } from "@nextui-org/button";
 import { Divider } from "@nextui-org/divider";
 import {
@@ -12,6 +14,15 @@ import {
   useFieldArray,
   useForm,
 } from "react-hook-form";
+
+const cityOptions = allDistict()
+  .sort()
+  .map((city: string) => {
+    return {
+      key: city,
+      label: city,
+    };
+  });
 
 export default function page() {
   const methods = useForm();
@@ -45,6 +56,14 @@ export default function page() {
             </div>
             <div className="min-w-fit flex-1">
               <FormDatePicker name="foundDate" label="Found Date" />
+            </div>
+          </div>
+          <div className="flex flex-wrap gap-2 py-2">
+            <div className="min-w-fit flex-1">
+              <FormInput label="Location" name="location" />
+            </div>
+            <div className="min-w-fit flex-1">
+              <FormSelect label="City" name="city" options={cityOptions} />
             </div>
           </div>
           <Divider className="my-5" />

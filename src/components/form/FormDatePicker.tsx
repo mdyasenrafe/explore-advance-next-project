@@ -11,8 +11,8 @@ export const FormDatePicker: React.FC<FormDatePickerProps> = ({
   fullWidth = true,
   required = false,
   type = "text",
+  variant = "bordered",
   name,
-  ...props
 }) => {
   return (
     <Controller
@@ -23,6 +23,7 @@ export const FormDatePicker: React.FC<FormDatePickerProps> = ({
           fullWidth={fullWidth}
           isRequired={required}
           {...fields}
+          variant={variant}
         />
       )}
     />
