@@ -15,11 +15,15 @@ const roleBasedRoutes = {
 export async function middleware(request: NextRequest) {
   const user = await getCurrentUser();
   const { pathname } = request.nextUrl;
+
   if (!user) {
     if (AuthRoutes.includes(pathname)) {
       return NextResponse.next();
     } else {
-      NextResponse.redirect(new URL("/", request.url));
+      console.log("inside the user =>", user);
+      return NextResponse.redirect(
+        new URL(`/login?redirect=${pathname}`, request.url)
+      );
     }
   }
 
@@ -30,7 +34,7 @@ export async function middleware(request: NextRequest) {
     }
   }
 
-  return NextResponse.redirect(new URL("/", request.url));
+  return NextResponse.redirect(new URL(`/`, request.url));
 }
 
 // See "Matching Paths" below to learn more

@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { Button } from "@nextui-org/button";
 import FormInput from "@/src/components/form/FormInput";
 import FormWrapper from "@/src/components/form/FormWrapper";
@@ -10,12 +10,30 @@ import { FieldValues, SubmitHandler } from "react-hook-form";
 import { useUserLogin } from "@/src/hooks/auth.hook";
 import { TLoginFormValues } from "@/src/services/AuthServices/types";
 import Loading from "@/src/components/UI/Loading";
+import { useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 const Page = () => {
-  const { mutate, isPending } = useUserLogin();
-  const onSubmit: SubmitHandler<TLoginFormValues> = (data) => {
+  const searchParams = useSearchParams();
+  const redirectPathName = searchParams.get("redirect");
+  console.log(redirectPathName);
+  const router = useRouter();
+
+  const { mutate, isPending, isSuccess } = useUserLogin();
+  const onSubmit: SubmitHandler<TLoginFormValues> = async (data) => {
     mutate(data);
   };
+
+  useEffect(() => {
+    if (!isPending && isSuccess) {
+      if (redirectPathName) {
+        router.push(redirectPathName);
+      } else {
+        router.push("/");
+      }
+    }
+  }, [isPending, isSuccess]);
+
   return (
     <React.Fragment>
       {isPending && <Loading />}
