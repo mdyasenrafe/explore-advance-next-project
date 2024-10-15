@@ -12,12 +12,13 @@ import { TLoginFormValues } from "@/src/services/AuthServices/types";
 import Loading from "@/src/components/UI/Loading";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
+import { useUser } from "@/src/context/user.provider";
 
 const Page = () => {
   const searchParams = useSearchParams();
   const redirectPathName = searchParams.get("redirect");
-  console.log(redirectPathName);
   const router = useRouter();
+  const { setLoading } = useUser();
 
   const { mutate, isPending, isSuccess } = useUserLogin();
   const onSubmit: SubmitHandler<TLoginFormValues> = async (data) => {
@@ -27,8 +28,10 @@ const Page = () => {
   useEffect(() => {
     if (!isPending && isSuccess) {
       if (redirectPathName) {
+        setLoading(true);
         router.push(redirectPathName);
       } else {
+        setLoading(true);
         router.push("/");
       }
     }

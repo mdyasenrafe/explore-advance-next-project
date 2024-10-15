@@ -20,4 +20,5 @@ export type TTokenUser = {
   status: string;
   iat: number;
   exp: number;
+  profilePhoto: string;
 };
