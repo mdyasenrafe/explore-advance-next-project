@@ -3,15 +3,7 @@
 import React from "react";
 import { Input } from "@nextui-org/input";
 import { useFormContext } from "react-hook-form";
-
-interface FormInputProps {
-  label?: string;
-  placeholder?: string;
-  fullWidth?: boolean;
-  required?: boolean;
-  type?: string;
-  name: string;
-}
+import { FormInputProps } from "./types";
 
 const FormInput: React.FC<FormInputProps> = ({
   label = "Label",
