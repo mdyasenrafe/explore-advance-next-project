@@ -21,6 +21,7 @@ export const FormSelect: React.FC<FormSelectProps> = ({
   type = "text",
   name,
   variant = "bordered",
+  disabled,
 }) => {
   const {
     register,
@@ -36,6 +37,7 @@ export const FormSelect: React.FC<FormSelectProps> = ({
       required={required}
       isInvalid={!!errors[name]}
       errorMessage={errors[name] ? (errors[name]?.message as string) : ""}
+      isDisabled={disabled}
     >
       {options.map((option) => (
         <SelectItem key={option.key}>{option.label}</SelectItem>

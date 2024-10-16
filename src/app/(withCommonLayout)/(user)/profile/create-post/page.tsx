@@ -84,6 +84,16 @@ export default function page() {
               <FormSelect label="City" name="city" options={cityOptions} />
             </div>
           </div>
+          <div className="flex flex-wrap gap-2 py-2">
+            <div className="min-w-fit flex-1">
+              <FormSelect
+                disabled={!categorySuccess}
+                label="Category"
+                name="category"
+                options={categoryOption}
+              />
+            </div>
+          </div>
           <Divider className="my-5" />
           <div className="flex justify-between items-center">
             <h1 className="text-xl">Owner verification questions</h1>

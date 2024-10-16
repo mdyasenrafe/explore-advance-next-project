@@ -7,4 +7,5 @@ export type FormInputProps = {
   name: string;
   variant?: "flat" | "bordered" | "faded" | "underlined";
   size?: "sm" | "md" | "lg";
+  disabled?: boolean;
 };
