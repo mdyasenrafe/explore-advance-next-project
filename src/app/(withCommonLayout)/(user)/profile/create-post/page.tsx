@@ -3,6 +3,7 @@
 import { FormDatePicker } from "@/src/components/form/FormDatePicker";
 import FormInput from "@/src/components/form/FormInput";
 import { FormSelect } from "@/src/components/form/FormSelect";
+import { useGetCategories } from "@/src/hooks/category.hook";
 import { dateToIso } from "@/src/utils/dateToIso";
 import { allDistict } from "@bangladeshi/bangladesh-address";
 import { Button } from "@nextui-org/button";
@@ -25,6 +26,23 @@ const cityOptions = allDistict()
   });
 
 export default function page() {
+  const {
+    data: categoriesData,
+    isLoading: categoryLoading,
+    isSuccess: categorySuccess,
+  } = useGetCategories();
+
+  let categoryOption = [];
+
+  if (categoriesData?.data && !categoryLoading) {
+    categoryOption = categoriesData.data
+      .sort()
+      .map((category: { _id: string; name: string }) => ({
+        key: category._id,
+        label: category.name,
+      }));
+  }
+
   const methods = useForm();
 
   const { control, handleSubmit } = methods;
